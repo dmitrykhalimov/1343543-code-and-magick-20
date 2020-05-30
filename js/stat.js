@@ -23,13 +23,25 @@ var renderCloud = function (ctx, x, y, color) {
 var getMaxElement = function (arr) {
   var maxElement = arr[0];
 
-  for (var i = 0; i < arr.length; i++) {
+  for (var i = 1; i < arr.length; i++) {
     if (arr[i] > maxElement) {
       maxElement = arr[i];
     }
   }
 
   return maxElement;
+};
+
+var makeGraph = function (ctx, coefficient, heightGraph, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(CLOUD_X + CHART_GAP + (CHART_GAP + BAR_WIDTH) * coefficient, CLOUD_Y + (CLOUD_HEIGHT - PADDING_BOTTOM - heightGraph), BAR_WIDTH, heightGraph);
+};
+
+var makeText = function (ctx, coefficient, heightGraph, playerName, playerTime) {
+  ctx.fillStyle = 'black';
+
+  ctx.fillText(playerName, CLOUD_X + CHART_GAP + (CHART_GAP + BAR_WIDTH) * coefficient, CLOUD_Y + (CLOUD_HEIGHT - PADDING_BOTTOM + NAME_GAP));
+  ctx.fillText(Math.floor(playerTime), CLOUD_X + CHART_GAP + (CHART_GAP + BAR_WIDTH) * coefficient, CLOUD_Y + (CLOUD_HEIGHT - PADDING_BOTTOM - heightGraph - STATS_GAP));
 };
 
 window.renderStatistics = function (ctx, players, times) {
@@ -48,18 +60,14 @@ window.renderStatistics = function (ctx, players, times) {
 
   for (var i = 0; i < players.length; i++) {
     var currentHeight = (MAX_HEIGHT * times[i]) / maxTime;
+    var randomSaturation = Math.floor(100 * Math.random()) + '%';
+    var colorGraph = 'hsl(240, ' + randomSaturation + ', 50%)';
 
     if (players[i] === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    } else {
-      var randomSaturation = Math.floor(100 * Math.random()) + '%';
-      ctx.fillStyle = 'hsl(240, ' + randomSaturation + ', 50%)';
+      colorGraph = 'rgba(255, 0, 0, 1)';
     }
 
-    ctx.fillRect(CLOUD_X + CHART_GAP + (CHART_GAP + BAR_WIDTH) * i, CLOUD_Y + (CLOUD_HEIGHT - PADDING_BOTTOM - currentHeight), BAR_WIDTH, currentHeight);
-
-    ctx.fillStyle = 'black';
-    ctx.fillText(players[i], CLOUD_X + CHART_GAP + (CHART_GAP + BAR_WIDTH) * i, CLOUD_Y + (CLOUD_HEIGHT - PADDING_BOTTOM + NAME_GAP));
-    ctx.fillText(Math.floor(times[i]), CLOUD_X + CHART_GAP + (CHART_GAP + BAR_WIDTH) * i, CLOUD_Y + (CLOUD_HEIGHT - PADDING_BOTTOM - currentHeight - STATS_GAP));
+    makeGraph(ctx, i, currentHeight, colorGraph);
+    makeText(ctx, i, currentHeight, players[i], times[i]);
   }
 };
