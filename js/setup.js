@@ -1,6 +1,6 @@
 'use strict';
 
-var PLAYERS_QUANTITIY = 4;
+var PLAYERS_QUANTITY = 4;
 var PLAYERS_TEMPLATE = {
   name: '',
   coatColor: '',
@@ -67,44 +67,21 @@ var generateRandomNumber = function (min, max) {
   return Math.floor(randomNumber);
 };
 
-var generateNames = function () {
+var generateWizards = function () {
   var mixedNames = mixArray(PLAYERS_NAMES);
   var mixedSurnames = mixArray(PLAYERS_SURNAMES);
-  for (var i = 0; i < PLAYERS_QUANTITIY; i++) {
+  for (var i = 0; i < players.length; i++) {
     players[i].name = mixedNames[i] + ' ' + mixedSurnames[i];
-  }
-};
-
-var generateCoats = function () {
-  for (var i = 0; i < PLAYERS_QUANTITIY; i++) {
     players[i].coatColor = PLAYER_COATS[generateRandomNumber(0, PLAYER_COATS.length - 1)];
-  }
-};
-
-var generateEyes = function () {
-  for (var i = 0; i < PLAYERS_QUANTITIY; i++) {
     players[i].eyesColor = PLAYER_EYES[generateRandomNumber(0, PLAYER_EYES.length - 1)];
   }
 };
 
-var makePlayersArray = function () {
-  for (var i = 0; i < PLAYERS_QUANTITIY; i++) {
-    players.push(JSON.parse(JSON.stringify(PLAYERS_TEMPLATE)));
-  }
-};
+players = new Array(PLAYERS_QUANTITY).fill().map(function () {
+  return Object.assign({}, PLAYERS_TEMPLATE);
+});
 
-var fillPlayersArray = function () {
-  generateNames();
-  generateCoats();
-  generateEyes();
-};
-
-var generatePlayersArray = function () {
-  makePlayersArray();
-  fillPlayersArray();
-};
-
-generatePlayersArray();
+generateWizards();
 
 var renderWizard = function (player) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
