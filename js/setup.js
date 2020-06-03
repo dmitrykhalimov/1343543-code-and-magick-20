@@ -1,20 +1,11 @@
 'use strict';
 
-var similarWizardTemplate = document.querySelector('#similar-wizard-template')
-  .content
-  .querySelector('.setup-similar-item');
-
-var setupClass = document.querySelector('.setup');
-setupClass.classList.remove('hidden');
-
-var PLAYERS_QUANTITIY = 3;
-
+var PLAYERS_QUANTITIY = 4;
 var PLAYERS_TEMPLATE = {
   name: '',
   coatColor: '',
   eyesColor: ''
 };
-
 var PLAYERS_NAMES = [
   'Иван',
   'Хуан Себастьян',
@@ -25,7 +16,6 @@ var PLAYERS_NAMES = [
   'Люпита',
   'Вашингтон'
 ];
-
 var PLAYERS_SURNAMES = [
   'да Марья',
   'Верон',
@@ -36,7 +26,6 @@ var PLAYERS_SURNAMES = [
   'Нионго',
   'Ирвинг'
 ];
-
 var PLAYER_COATS = [
   'rgb(101, 137, 164)',
   'rgb(241, 43, 107)',
@@ -45,7 +34,6 @@ var PLAYER_COATS = [
   'rgb(215, 210, 55)',
   'rgb(0, 0, 0)',
 ];
-
 var PLAYER_EYES = [
   'black',
   'red',
@@ -53,6 +41,10 @@ var PLAYER_EYES = [
   'yellow',
   'green',
 ];
+
+var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+var setupClass = document.querySelector('.setup');
+setupClass.classList.remove('hidden');
 
 var players = [];
 
@@ -78,25 +70,25 @@ var generateRandomNumber = function (min, max) {
 var generateNames = function () {
   var mixedNames = mixArray(PLAYERS_NAMES);
   var mixedSurnames = mixArray(PLAYERS_SURNAMES);
-  for (var i = 0; i <= PLAYERS_QUANTITIY; i++) {
+  for (var i = 0; i < PLAYERS_QUANTITIY; i++) {
     players[i].name = mixedNames[i] + ' ' + mixedSurnames[i];
   }
 };
 
 var generateCoats = function () {
-  for (var i = 0; i <= PLAYERS_QUANTITIY; i++) {
+  for (var i = 0; i < PLAYERS_QUANTITIY; i++) {
     players[i].coatColor = PLAYER_COATS[generateRandomNumber(0, PLAYER_COATS.length - 1)];
   }
 };
 
 var generateEyes = function () {
-  for (var i = 0; i <= PLAYERS_QUANTITIY; i++) {
+  for (var i = 0; i < PLAYERS_QUANTITIY; i++) {
     players[i].eyesColor = PLAYER_EYES[generateRandomNumber(0, PLAYER_EYES.length - 1)];
   }
 };
 
 var makePlayersArray = function () {
-  for (var i = 0; i <= PLAYERS_QUANTITIY; i++) {
+  for (var i = 0; i < PLAYERS_QUANTITIY; i++) {
     players.push(JSON.parse(JSON.stringify(PLAYERS_TEMPLATE)));
   }
 };
@@ -106,6 +98,13 @@ var fillPlayersArray = function () {
   generateCoats();
   generateEyes();
 };
+
+var generatePlayersArray = function () {
+  makePlayersArray();
+  fillPlayersArray();
+};
+
+generatePlayersArray();
 
 var renderWizard = function (player) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -117,9 +116,6 @@ var renderWizard = function (player) {
   return wizardElement;
 };
 
-makePlayersArray();
-fillPlayersArray();
-
 var fragment = document.createDocumentFragment();
 
 for (var i = 0; i < players.length; i++) {
@@ -128,3 +124,5 @@ for (var i = 0; i < players.length; i++) {
 
 var similarListElement = setupClass.querySelector('.setup-similar-list');
 similarListElement.appendChild(fragment);
+
+setupClass.querySelector('.setup-similar').classList.remove('hidden');
