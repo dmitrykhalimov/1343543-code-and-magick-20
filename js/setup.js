@@ -44,7 +44,6 @@ var PLAYER_EYES = [
 
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var setupClass = document.querySelector('.setup');
-setupClass.classList.remove('hidden');
 
 var players = [];
 
@@ -103,3 +102,16 @@ var similarListElement = setupClass.querySelector('.setup-similar-list');
 similarListElement.appendChild(fragment);
 
 setupClass.querySelector('.setup-similar').classList.remove('hidden');
+
+var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = document.querySelector('.setup-close');
+
+
+setupOpen.addEventListener('click', function () {
+  setup.classList.remove('hidden');
+});
+
+setupClose.addEventListener('click', function () {
+  setup.classList.add('hidden');
+});
