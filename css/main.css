@@ -748,6 +748,28 @@ input[type=radio]:checked + .review-mark-label
     outline: none;
 }
 
+button.setup-close
+{
+    font-size: 70px;
+
+    top: 20px;
+    right: 20px;
+
+    float: right;
+
+    cursor: pointer;
+    transform: translateY(-.3em);
+
+    color: #000;
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: content-box;
+    line-height: normal;
+    background: none;
+}
+
 .setup-close
 {
     font-size: 70px;

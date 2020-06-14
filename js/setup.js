@@ -125,7 +125,8 @@ var closePopup = function () {
   document.removeEventListener('keydown', onPopupEscPress);
 };
 
-setupOpen.addEventListener('click', function () {
+setupOpen.addEventListener('click', function (evt) {
+  evt.preventDefault();
   openPopup();
 });
 
@@ -135,14 +136,7 @@ setupOpen.addEventListener('keydown', function (evt) {
   }
 });
 
-setupClose.addEventListener('click', function () {
+setupClose.addEventListener('click', function (evt) {
+  evt.preventDefault();
   closePopup();
 });
-
-setupClose.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
-    closePopup();
-  }
-});
-
-
