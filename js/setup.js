@@ -1,55 +1,15 @@
 'use strict';
 
-var PLAYERS_QUANTITY = 4;
-var PLAYERS_TEMPLATE = {
-  name: '',
-  coatColor: '',
-  eyesColor: ''
-};
-var PLAYERS_NAMES = [
-  'Иван',
-  'Хуан Себастьян',
-  'Мария',
-  'Кристоф',
-  'Виктор',
-  'Юлия',
-  'Люпита',
-  'Вашингтон'
-];
-var PLAYERS_SURNAMES = [
-  'да Марья',
-  'Верон',
-  'Мирабелла',
-  'Вальц',
-  'Онопко',
-  'Топольницкая',
-  'Нионго',
-  'Ирвинг'
-];
-
-
-// console.log(window.utils.window.utils.mixArray(FIREBALL_COLORS));
-
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var setupClass = document.querySelector('.setup');
+/*
 
-var players = [];
-
-var generateWizards = function () {
-  var mixedNames = window.utils.mixArray(PLAYERS_NAMES);
-  var mixedSurnames = window.utils.mixArray(PLAYERS_SURNAMES);
-  for (var i = 0; i < players.length; i++) {
-    players[i].name = mixedNames[i] + ' ' + mixedSurnames[i];
-    players[i].coatColor = window.colorize.generateColor('coats');
-    players[i].eyesColor = window.colorize.generateColor('eyes');
-  }
-};
 
 players = new Array(PLAYERS_QUANTITY).fill().map(function () {
   return Object.assign({}, PLAYERS_TEMPLATE);
-});
+});*/
 
-generateWizards();
+// generateWizards();
 
 var renderWizard = function (player) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -63,8 +23,8 @@ var renderWizard = function (player) {
 
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < players.length; i++) {
-  fragment.appendChild(renderWizard(players[i]));
+for (var i = 0; i < window.generateWizards.players.length; i++) {
+  fragment.appendChild(renderWizard(window.generateWizards.players[i]));
 }
 
 var similarListElement = setupClass.querySelector('.setup-similar-list');
