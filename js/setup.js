@@ -26,61 +26,22 @@ var PLAYERS_SURNAMES = [
   'Нионго',
   'Ирвинг'
 ];
-var PLAYER_COATS = [
-  'rgb(101, 137, 164)',
-  'rgb(241, 43, 107)',
-  'rgb(146, 100, 161)',
-  'rgb(56, 159, 117)',
-  'rgb(215, 210, 55)',
-  'rgb(0, 0, 0)',
-];
-var PLAYER_EYES = [
-  'black',
-  'red',
-  'blue',
-  'yellow',
-  'green',
-];
 
-var FIREBALL_COLORS = [
-  '#ee4830',
-  '#30a8ee',
-  '#5ce6c0',
-  '#e848d5',
-  '#e6e848'
-];
+
+// console.log(window.utils.window.utils.mixArray(FIREBALL_COLORS));
 
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var setupClass = document.querySelector('.setup');
 
 var players = [];
 
-var mixArray = function (arr) {
-  var j;
-  var temp;
-  var mixedArray = arr.slice();
-
-  for (var i = mixedArray.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    temp = mixedArray[j];
-    mixedArray[j] = mixedArray[i];
-    mixedArray[i] = temp;
-  }
-  return mixedArray;
-};
-
-var generateRandomNumber = function (min, max) {
-  var randomNumber = min + Math.random() * (max + 1 - min);
-  return Math.floor(randomNumber);
-};
-
 var generateWizards = function () {
-  var mixedNames = mixArray(PLAYERS_NAMES);
-  var mixedSurnames = mixArray(PLAYERS_SURNAMES);
+  var mixedNames = window.utils.mixArray(PLAYERS_NAMES);
+  var mixedSurnames = window.utils.mixArray(PLAYERS_SURNAMES);
   for (var i = 0; i < players.length; i++) {
     players[i].name = mixedNames[i] + ' ' + mixedSurnames[i];
-    players[i].coatColor = PLAYER_COATS[generateRandomNumber(0, PLAYER_COATS.length - 1)];
-    players[i].eyesColor = PLAYER_EYES[generateRandomNumber(0, PLAYER_EYES.length - 1)];
+    players[i].coatColor = window.colorize.generateColor('coats');
+    players[i].eyesColor = window.colorize.generateColor('eyes');
   }
 };
 
@@ -155,19 +116,19 @@ var wizardEyes = document.querySelector('.wizard-eyes');
 var fireball = document.querySelector('.setup-fireball-wrap');
 
 wizardCoat.addEventListener('click', function () {
-  var coatColor = PLAYER_COATS[generateRandomNumber(0, PLAYER_COATS.length - 1)];
+  var coatColor = window.colorize.generateColor('coats');
   wizardCoat.style.fill = coatColor;
   document.querySelector('input[name="coat-color"]').value = coatColor;
 });
 
 wizardEyes.addEventListener('click', function () {
-  var eyesColor = PLAYER_EYES[generateRandomNumber(0, PLAYER_EYES.length - 1)];
+  var eyesColor = window.colorize.generateColor('eyes');
   wizardEyes.style.fill = eyesColor;
   document.querySelector('input[name="eyes-color"]').value = eyesColor;
 });
 
 fireball.addEventListener('click', function () {
-  var fireballColor = FIREBALL_COLORS[generateRandomNumber(0, FIREBALL_COLORS.length - 1)];
+  var fireballColor = window.colorize.generateColor('fireball');
   fireball.style.backgroundColor = fireballColor;
   document.querySelector('input[name="fireball-color"]').value = fireballColor;
 });
