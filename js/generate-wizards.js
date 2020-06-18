@@ -41,7 +41,6 @@
     players[i].eyesColor = window.colorize.generateColor('eyes');
   }
 
-
   window.generateWizards = {
     players: players
   };
