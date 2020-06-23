@@ -45,6 +45,16 @@
     closePopup();
   });
 
+  var setupForm = document.querySelector('.setup-wizard-form');
+  var onFormSubmit = function (evt) {
+    window.backend.serverQuery('https://javascript.pages.academy/code-and-magick', 'POST', function () {
+      setup.classList.add('hidden');
+    }, window.backend.drawError, new FormData(setupForm));
+    evt.preventDefault();
+  };
+  setupForm.addEventListener('submit', onFormSubmit);
+
+
   var dialogHandle = setup.querySelector('.upload');
 
   dialogHandle.addEventListener('mousedown', function (evt) {
