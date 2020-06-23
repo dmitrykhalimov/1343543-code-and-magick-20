@@ -9,28 +9,26 @@
   var similarListElement = setupClass.querySelector('.setup-similar-list');
 
   var renderWizard = function (player) {
-    console.log(player);
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = player.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = player.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = player.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = player.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = player.colorEyes;
 
-    console.log(wizardElement);
     return wizardElement;
   };
 
   var onLoad = function (receivedData) {
     var randomSimilarPlayers = window.utils.mixArray(receivedData);
-    console.log(randomSimilarPlayers);
+
     for (var i = 0; i < PLAYERS_QUANTITY; i++) {
       fragment.appendChild(renderWizard(randomSimilarPlayers[i]));
     }
+
+    similarListElement.appendChild(fragment);
   };
 
-  window.backend.load(onLoad);
-
-  similarListElement.appendChild(fragment);
+  window.backend.load(onLoad, window.backend.drawError);
 
   setupClass.querySelector('.setup-similar').classList.remove('hidden');
 })();
