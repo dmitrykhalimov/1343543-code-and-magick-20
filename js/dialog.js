@@ -47,9 +47,9 @@
 
   var setupForm = document.querySelector('.setup-wizard-form');
   var onFormSubmit = function (evt) {
-    window.backend.save(new FormData(setupForm), function () {
+    window.backend.serverQuery('https://javascript.pages.academy/code-and-magick', 'POST', function () {
       setup.classList.add('hidden');
-    }, window.backend.drawError);
+    }, window.backend.drawError, new FormData(setupForm));
     evt.preventDefault();
   };
   setupForm.addEventListener('submit', onFormSubmit);
