@@ -19,7 +19,6 @@
   };
 
   var onLoad = function (receivedData) {
-    console.log(receivedData);
     var randomSimilarPlayers = window.utils.mixArray(receivedData);
 
     for (var i = 0; i < PLAYERS_QUANTITY; i++) {
@@ -30,6 +29,5 @@
   };
 
   window.backend.serverQuery('https://javascript.pages.academy/code-and-magick/data', 'GET', onLoad, window.backend.drawError);
-
   setupClass.querySelector('.setup-similar').classList.remove('hidden');
 })();
