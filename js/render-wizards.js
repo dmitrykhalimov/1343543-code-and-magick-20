@@ -19,27 +19,35 @@
   };
 
   var updateWizards = function () {
-    console.log(window.customize.currentColors);
+    var getRank = function (wizard) {
+      var rank = 0;
 
-    var sameCoatAndEyesWizards = wizards.filter(function (it) {
-      return it.colorCoat === window.customize.currentColors.colorCoat && it.colorEyes === window.customize.currentColors.colorEyes;
-    });
+      if (wizard.colorCoat === window.customize.currentColors.colorCoat) {
+        rank += 2;
+      }
+      if (wizard.colorEyes === window.customize.currentColors.colorEyes) {
+        rank += 1;
+      }
 
-    var sameCoatWizards = wizards.filter(function (it) {
-      return it.colorCoat === window.customize.currentColors.colorCoat;
-    });
+      return rank;
+    };
 
-    var sameEyesWizards = wizards.filter(function (it) {
-      return it.colorEyes === window.customize.currentColors.colorEyes;
-    });
+    var namesComparator = function (left, right) {
+      if (left > right) {
+        return 1;
+      } else if (left < right) {
+        return -1;
+      } else {
+        return 0;
+      }
+    };
 
-    var filteredWizards = sameCoatAndEyesWizards;
-    filteredWizards = filteredWizards.concat(sameCoatWizards);
-    filteredWizards = filteredWizards.concat(sameEyesWizards);
-    filteredWizards = filteredWizards.concat(wizards);
-
-    var uniqueWizards = filteredWizards.filter(function (it, i) {
-      return filteredWizards.indexOf(it) === i;
+    var uniqueWizards = wizards.slice().sort(function (left, right) {
+      var rankDiff = getRank(right) - getRank(left);
+      if (rankDiff === 0) {
+        rankDiff = namesComparator(left.name, right.name);
+      }
+      return rankDiff;
     });
 
     for (var i = 0; i < PLAYERS_QUANTITY; i++) {
@@ -47,13 +55,6 @@
     }
     similarListElement.innerHTML = '';
     similarListElement.appendChild(fragment);
- /*   console.log('Получен цвет' + color);
-    console.log('Получен предмет одежды' + colorType);
-    console.log(wizards);
-    var wizards2 = wizards.filter(function (wizard) {
-      return wizard[colorType] === color;
-    });
-    console.log(wizards2);*/
   };
 
   var wizards = [];
