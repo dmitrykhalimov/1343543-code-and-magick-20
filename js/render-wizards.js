@@ -58,6 +58,7 @@
   };
 
   var wizards = [];
+
   var onLoad = function (receivedData) {
     wizards = receivedData;
     updateWizards();

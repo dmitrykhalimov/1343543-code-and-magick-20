@@ -20,8 +20,10 @@
       }
       document.querySelector(inputClass).value = color;
       currentColors[colorType] = color;
-      console.log(currentColors);
-      window.renderWizards.updateWizards();
+
+      window.debounce(function () {
+        window.renderWizards.updateWizards();
+      });
     });
   };
 
